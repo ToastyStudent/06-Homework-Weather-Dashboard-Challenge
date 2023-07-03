@@ -1,7 +1,7 @@
 // Global Variables
 var searchHistory = [];
 var weatherApiRootUrl = 'https://api.openweathermap.org';
-var weatherApiKey = '6e89671153daf4196c3a65e68cba5483';
+var weatherApiKey = 'fbbedb296698eb8ccc66319f1ef394ea';
 
 // Variables referencing DOM elements
 var searchForm = document.querySelector('#search-form');
@@ -111,7 +111,7 @@ function renderForecastCard(forecast) {
   var windSpeed = forecast.wind.speed;
 
   // Create elements for a card
-  var forecastContainer = document.createElement('div');
+  var cardContainer = document.createElement('div');
   var weatherCard = document.createElement('div');
   var weatherCardBody = document.createElement('div');
   var weatherCardTitle = document.createElement('h5');
@@ -120,12 +120,12 @@ function renderForecastCard(forecast) {
   var windElement = document.createElement('p');
   var humidityElement = document.createElement('p');
 
-  forecastContainer.append(weatherCard);
+  cardContainer.append(weatherCard);
   weatherCard.append(weatherCardBody);
   weatherCardBody.append(weatherCardTitle, weatherIcon, tempElement, windElement, humidityElement);
 
-  forecastContainer.setAttribute('class', 'col-md');
-  forecastContainer.classList.add('five-day-card');
+  cardContainer.setAttribute('class', 'col-md');
+  cardContainer.classList.add('five-day-card');
   weatherCard.setAttribute('class', 'card bg-primary h-100 text-white');
   weatherCardBody.setAttribute('class', 'card-body p-2');
   weatherCardTitle.setAttribute('class', 'card-title');
@@ -141,7 +141,7 @@ function renderForecastCard(forecast) {
   windElement.textContent = `Wind: ${windSpeed} MPH`;
   humidityElement.textContent = `Humidity: ${humidityLevel} %`;
 
-  forecastContainer.append(forecastContainer);
+  forecastContainer.append(cardContainer);
 }
 
 // Function to display 5 day forecast out from the current day.
@@ -182,11 +182,11 @@ function renderItems(city, data) {
 // This function fetches weather data for a SPECIFIC location from the Weather Geolocation
 // endpoint before calling the various established functions to display the location's current and forecast weather data.
 function fetchWeather(location) {
-  var { latitude } = location;
-  var { longitude } = location;
+  var { lat } = location;
+  var { lon } = location;
   var city = location.name;
 
-  var apiUrl = `${weatherApiRootUrl}/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=imperial&appid=${weatherApiKey}`;
+  var apiUrl = `${weatherApiRootUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${weatherApiKey}`;
 
   fetch(apiUrl)
     .then(function (res) {
